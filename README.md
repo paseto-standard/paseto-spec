@@ -142,6 +142,11 @@ cleartext but base64url-encoded) is included in the signature or authentication 
 The curation of implementations has been moved to [paseto.io](https://paseto.io).
 See https://github.com/paragonie/paseto-io for the website source code.
 
+### Test Vectors
+
+See [this repository](https://github.com/paseto-standard/test-vectors)
+for the PASETO test vectors.
+
 ## PASETO Extensions
 
 ### PASERK
