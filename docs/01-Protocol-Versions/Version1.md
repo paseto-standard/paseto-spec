@@ -67,7 +67,7 @@ Given a message `m`, key `k`, and optional footer `f`
 2. Verify that the message begins with `v1.local.`, otherwise throw an
    exception. This constant will be referred to as `h`.
 3. Decode the payload (`m` sans `h`, `f`, and the optional trailing period
-   between `m` and `f`) from b64 to raw binary. Set:
+   between `m` and `f`) from base64url to raw binary. Set:
    * `n` to the leftmost 32 bytes
    * `t` to the rightmost 48 bytes
    * `c` to the middle remainder of the payload, excluding `n` and `t`
@@ -148,7 +148,7 @@ footer `f` (which defaults to empty string):
 2. Verify that the message begins with `v1.public.`, otherwise throw an
    exception. This constant will be referred to as `h`.
 3. Decode the payload (`sm` sans `h`, `f`, and the optional trailing period
-   between `m` and `f`) from b64 to raw binary. Set:
+   between `m` and `f`) from base64url to raw binary. Set:
    * `s` to the rightmost 256 bytes
    * `m` to the leftmost remainder of the payload, excluding `s`
 4. Pack `h`, `m`, and `f` together (in that order) using PAE (see
