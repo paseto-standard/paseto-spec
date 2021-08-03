@@ -44,7 +44,7 @@ string), and an optional implicit assertion `i` (which defaults to empty string)
    );
    ```
 6. Pack `h`, `n`, `c`, `f`, and `i` together using
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding)
+   [PAE](Common.md#authentication-padding)
    (pre-authentication encoding). We'll call this `preAuth`.
 7. Calculate HMAC-SHA384 of the output of `preAuth`, using `Ak` as the
    authentication key. We'll call this `t`.
@@ -104,7 +104,7 @@ implicit assertion `i` (which defaults to empty string):
    );
    ```
 5. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding).
+   [PAE](Common.md#authentication-padding).
    We'll call this `preAuth`.
 6. Recalculate HMAC-SHA-384 of `preAuth` using `Ak` as the key. We'll call this `t2`.
 7. Compare `t` with `t2` using a constant-time string compare function. If they
@@ -132,7 +132,7 @@ Given a message `m`, 384-bit ECDSA secret key `sk`, an optional footer `f`
 
 1. Set `h` to `v3.public.`
 2. Pack `pk`, `h`, `m`, `f`, and `i` together using
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding)
+   [PAE](Common.md#authentication-padding)
    (pre-authentication encoding). We'll call this `m2`.
    * Note: `pk` is the public key corresponding to `sk` (which **MUST** use
      [point compression](https://www.secg.org/sec1-v2.pdf)). `pk` **MUST** be 49
@@ -197,7 +197,7 @@ implicit assertion `i` (which defaults to empty string):
     * `s` to the rightmost 96 bytes
     * `m` to the leftmost remainder of the payload, excluding `s`
 4. Pack `pk`, `h`, `m`, `f`, and `i` together (in that order) using PAE (see
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding).
+   [PAE](Common.md#authentication-padding).
    We'll call this `m2`.
    * `pk` **MUST** be 49 bytes long, and the first byte **MUST** be `0x02` or `0x03`
      (depending on the sign of the Y coordinate). The remaining bytes **MUST** be
