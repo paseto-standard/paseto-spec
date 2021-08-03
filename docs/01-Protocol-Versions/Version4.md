@@ -36,7 +36,7 @@ implicit assertion `i` (which defaults to empty string).
    );
    ```
 5. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding).
+   [PAE](Common.md#authentication-padding).
    We'll call this `preAuth`.
 6. Calculate BLAKE2b-MAC of the output of `preAuth`, using `Ak` as the
    authentication key. We'll call this `t`.
@@ -90,7 +90,7 @@ implicit assertion `i` (which defaults to empty string).
    );
    ```
 4. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding).
+   [PAE](Common.md#authentication-padding).
    We'll call this `preAuth`.
 5. Re-calculate BLAKE2b-MAC of the output of `preAuth`, using `Ak` as the
    authentication key. We'll call this `t2`.
@@ -124,7 +124,7 @@ implicit assertion `i` (which defaults to empty string):
 
 1. Set `h` to `v4.public.`
 2. Pack `h`, `m`, `f`, and `i` together using
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding)
+   [PAE](Common.md#authentication-padding)
    (pre-authentication encoding). We'll call this `m2`.
 3. Sign `m2` using Ed25519 `sk`. We'll call this `sig`.
    ```
@@ -155,7 +155,7 @@ implicit assertion `i` (which defaults to empty string):
     * `s` to the rightmost 64 bytes
     * `m` to the leftmost remainder of the payload, excluding `s`
 4. Pack `h`, `m`, `f`, `i` together using
-   [PAE](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding).
+   [PAE](Common.md#authentication-padding).
    We'll call this `m2`.
 5. Use Ed25519 to verify that the signature is valid for the message:
    ```

@@ -40,7 +40,7 @@ used in calculating the authentication tag for the payload. It's always base64ur
  * For local tokens, it's included in the associated data alongside the nonce.
  * For public tokens, it's appended to the message during the actual
    authentication/signing step, in accordance to
-   [our standard format](https://github.com/paragonie/paseto/blob/master/docs/01-Protocol-Versions/Common.md#authentication-padding).
+   [our standard format](01-Protocol-Versions/Common.md#authentication-padding).
 
 Thus, if you want unencrypted, but authenticated, tokens, you can simply set your payload
 to an empty string, then your footer to the message you want to authenticate, and use a
