@@ -48,8 +48,8 @@ implicit assertion `i` (which defaults to empty string).
    );
    ```
 7. If `f` is:
-    * Empty: return h || base64url(n || c)
-    * Non-empty: return h || base64url(n || c) || `.` || base64url(f)
+    * Empty: return h || base64url(n || c || t)
+    * Non-empty: return h || base64url(n || c || t) || `.` || base64url(f)
     * ...where || means "concatenate"
     * Note: `base64url()` means Base64url from RFC 4648 without `=` padding.
 
