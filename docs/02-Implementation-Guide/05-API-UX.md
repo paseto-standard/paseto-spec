@@ -15,6 +15,11 @@ A **Parser** is a function or class that verifies the cryptographic integrity of
 PASETO token, and also allows users to assert that the claims in the token conform to
 their expectations via Parser Rules.
 
+### Ease of Use
+
+We have no specific recommendations on ease-of-use, since every programming language is subtly
+different from each other.
+
 ### Misuse Resistance
 
 Every Builder and Parser **SHOULD** only accept one version of the PASETO protocol and one
