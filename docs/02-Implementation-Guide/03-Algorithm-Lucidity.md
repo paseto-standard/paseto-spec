@@ -83,7 +83,46 @@ return true, throw an `Exception`.
 
 If you're working in a procedural programming language, where the concept of classes isn't
 available to lean on, the algorithm identifier should be hard-coded alongside the key material
-(e.g. in a `struct`) and checked by the library.
+(e.g. in a `struct` or a header attached to the key material in memory) and checked by the 
+library.
+
+Here's a rough pseudocode example for the C programming language:
+
+```c
+#include "sodium.h"
+
+typedef enum { V3_LOCAL, V3_LOCAL, V3_PUBLIC };
+
+unsigned char* paseto_v3_local_keygen() {
+    unsigned char out[33];
+    out[0] = (unsigned char) V3_LOCAL & 0xff;
+    randombytes_buf(out + 1, 32);
+    return out;
+}
+unsigned char* paseto_v4_local_keygen() {
+    unsigned char out[33];
+    out[0] = (unsigned char) V4_LOCAL & 0xff;
+    randombytes_buf(out + 1, 32);
+    return out;
+}
+unsigned char* paseto_v4_public_keygen() {
+    unsigned char out[65];
+    unsigned char tmp[32];
+    out[0] = (unsigned char) V4_PUBLIC & 0xff;
+    crypto_sign_keypair(tmp, out + 1);
+    return out;
+}
+```
+
+And then when processing a token:
+
+```c
+int paseto_v4_local_decrypt(unsigned char* out, const unsigned char* in, const unsigned char* key) {
+    if (key[0] != V4_LOCAL) {
+        return -1; /* Wrong version or purpose */
+    }
+}  
+```
 
 ## Why This Matters
 
