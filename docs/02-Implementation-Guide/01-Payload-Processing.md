@@ -34,6 +34,8 @@ It **MUST NOT** be possible for a user to take a known public key (used by
 *public* tokens), and generate a *local* token with the same key that any PASETO
 implementations will accept.
 
+See [Algorithm Lucidity](03-Algorithm-Lucidity.md) for more information and guidance.
+
 ## Optional Footer
 
 PASETO places no restrictions on the contents of the authenticated footer.

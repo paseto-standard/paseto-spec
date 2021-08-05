@@ -2,6 +2,11 @@
 
 ## Encrypt
 
+Before encrypting, first assert that the key being used is intended for use
+with `v4.local` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
+
 Given a message `m`, key `k`, and optional footer `f`, and an optional
 implicit assertion `i` (which defaults to empty string).
 
@@ -54,6 +59,11 @@ implicit assertion `i` (which defaults to empty string).
     * Note: `base64url()` means Base64url from RFC 4648 without `=` padding.
 
 ## Decrypt
+
+Before decrypting, first assert that the key being used is intended for use
+with `v4.local` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
 
 Given a message `m`, key `k`, and optional footer `f`, and an optional
 implicit assertion `i` (which defaults to empty string).
@@ -119,6 +129,11 @@ implicit assertion `i` (which defaults to empty string).
 
 ## Sign
 
+Before signing, first assert that the key being used is intended for use
+with `v4.public` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
+
 Given a message `m`, Ed25519 secret key `sk`, and
 optional footer `f` (which defaults to empty string), and an optional
 implicit assertion `i` (which defaults to empty string):
@@ -141,6 +156,11 @@ implicit assertion `i` (which defaults to empty string):
     * Note: `base64url()` means Base64url from RFC 4648 without `=` padding.
 
 ## Verify
+
+Before verifying, first assert that the key being used is intended for use
+with `v4.public` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
 
 Given a signed message `sm`, public key `pk`, and optional footer `f`
 (which defaults to empty string), and an optional
