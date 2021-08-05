@@ -47,7 +47,7 @@ token to the corresponding Builder/Parser instance.
 
 The library **SHOULD NOT** provide version routing out-of-the-box. 
 It's trivial to write code to map `v4.local.` token headers to a `ParserV4Local` object 
-(or a `Parser` object instantiated with `ProtocolV4` and `LocalPurpose` at runtime).
+(or a `Parser` object instantiated with `ProtocolV4` and `LocalPurpose`) at runtime.
 
 Library authors **MAY** provide version routing out-of-the-box as a separate
 package/module. We recommend enforcing a strict allow-list on the versions and purposes
