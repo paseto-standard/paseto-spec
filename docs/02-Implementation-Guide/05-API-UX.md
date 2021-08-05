@@ -59,6 +59,8 @@ if a user provides a (version, purpose) for which the application has not specif
 Libraries are encouraged to provide secure defaults for the claims in your Builders and Parsers,
 through which ever mechanism is most suitable for the language and framework you're developing in.
 
+#### Default Expiration Claims
+
 Builders and Parsers **SHOULD**, by default, include an `exp` claim if the user did not specify
 an expiration time. Users **MUST** have some means of explicitly declaring non-expiring tokens.
 
@@ -72,3 +74,14 @@ processing them--this is almost certainly an oversight rather than a deliberate 
 
 When it *is* a deliberate choice, users should be given the opportunity to deliberately
 remove this claim from the Builder and Parser.
+
+#### Other Default Claims
+
+Implementations are free to choose any additional default values for [registered claims](04-Claims.md#registered-claims)
+for their Parsers and Builders, but they are not required.
+
+The default values for `iat` and `nbf` (if included in the list of default claims by the
+library, and not overriden or opted out by the user) **MUST** be the current time.
+
+PASETO libraries **MUST NOT** add default values for non-registered claims. These are
+considered Custom Claims and should be left to each application to define and/or require.
