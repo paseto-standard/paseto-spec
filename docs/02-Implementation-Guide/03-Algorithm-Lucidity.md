@@ -134,3 +134,21 @@ this by limiting the in-band negotiation to the bare minimum:
 
 However, PASETO implementations that allow the incorrect key to be used for a given algorithm
 may open themselves up to attack.
+
+By enforcing Algorithm Lucidity, the libraries that implement PASETO (and the applications that
+depend on those libraries) can boast a stronger misuse-resistance story.
+
+The absence of this property isn't a vulnerability, because there may be other mitigating factors
+at play. 
+
+For example: If the keys are used in totally disparate code paths, and there is no potential for
+a Confused Deputy in the implementation's architecture (n.b., any high-level user-facing API that 
+switches between the disparate back-end code paths), then the absence of Algorithm Lucidity cannot
+cause a security vulnerability.
+
+However, the moment someone comes along and makes said implementation more user-friendly, the
+assumptions that made this *safe* are invalidated. It's also not great to have to decide between
+security and convenience.
+
+The simple solution to that whole conundrum is: **Always implement Algorithm Lucidity in PASETO
+libraries, and feel free to make your API as user-friendly as possible.**
