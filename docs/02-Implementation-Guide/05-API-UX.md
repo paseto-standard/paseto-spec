@@ -37,8 +37,9 @@ This responsibility **MUST NOT** be shifted to the user.
 
 Each Builder/Parser should limit the runtime negotiation as much as possible.
 
-If you're only ever vending `v4.local` tokens, and you unexpectedly receive a `v3.public`
-token, whether it's a mistake or an active attack, it should be treated as invalid input.
+If you're only ever vending `v4.local` tokens, and you unexpectedly receive a `v3.local`
+or `v4.public` token, whether it's a mistake or an active attack, it should be treated as
+invalid input.
 
 If applications want to support multiple versions/purposes simultaneously, they can make
 the deliberate decision to do so by mapping the version and purpose from an incoming
