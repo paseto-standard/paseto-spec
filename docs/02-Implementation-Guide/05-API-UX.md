@@ -65,4 +65,4 @@ If someone omits an expiration header from their tokens--or forgets to require o
 processing them--this is almost certainly an oversight rather than a deliberate choice.
 
 When it *is* a deliberate choice, users should be given the opportunity to deliberately
-remove this header from the Builder and Parser.
+remove this claim from the Builder and Parser.
