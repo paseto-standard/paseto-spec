@@ -22,3 +22,6 @@ PASETO can be separated into two distinct parts:
 
 * [Payload Processing](01-Payload-Processing.md)
 * [User-Defined Parser Validation](02-Validators.md)
+* [Algorithm Lucidity](03-Algorithm-Lucidity.md)
+* [Registered Claims](04-Claims.md)
+* [API / User Experience Recommendations](05-API-UX.md)

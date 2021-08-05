@@ -91,7 +91,7 @@ Here's a rough pseudocode example for the C programming language:
 ```c
 #include "sodium.h"
 
-typedef enum { V3_LOCAL, V3_LOCAL, V3_PUBLIC };
+enum KeyHeaders { V3_LOCAL, V3_LOCAL, V3_PUBLIC };
 
 unsigned char* paseto_v3_local_keygen() {
     unsigned char out[33];
