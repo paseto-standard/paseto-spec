@@ -32,12 +32,12 @@ implicit assertion `i` (which defaults to empty string).
        length = 32
    );
    ```
-4. Encrypt the message using XChaCha20, using `n2` from step 3 as the nonce.
+4. Encrypt the message using XChaCha20, using `n2` from step 3 as the nonce and `Ek` as the key.
    ```
    c = crypto_stream_xchacha20_xor(
        message = m
        nonce = n2
-       key = k
+       key = Ek
    );
    ```
 5. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
@@ -100,10 +100,10 @@ implicit assertion `i` (which defaults to empty string).
        length = 32
    );
    ```
-4. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
+5. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
    [PAE](Common.md#authentication-padding).
    We'll call this `preAuth`.
-5. Re-calculate BLAKE2b-MAC of the output of `preAuth`, using `Ak` as the
+6. Re-calculate BLAKE2b-MAC of the output of `preAuth`, using `Ak` as the
    authentication key. We'll call this `t2`.
    ```
    t2 = crypto_generichash(
@@ -112,20 +112,20 @@ implicit assertion `i` (which defaults to empty string).
        length = 32
    );
    ```
-6. Compare `t` with `t2` using a constant-time string compare function. If they
+7. Compare `t` with `t2` using a constant-time string compare function. If they
    are not identical, throw an exception.
     * You **MUST** use a constant-time string compare function to be compliant.
       If you do not have one available to you in your programming language/framework,
       you MUST use [Double HMAC](https://paragonie.com/blog/2015/11/preventing-timing-attacks-on-string-comparison-with-double-hmac-strategy).
-7. Decrypt `c` using `XChaCha20`, store the result in `p`.
+8. Decrypt `c` using `XChaCha20`, store the result in `p`.
    ```
    p = crypto_stream_xchacha20_xor(
       ciphertext = c
       nonce = n2
-      key = k
+      key = Ek
    );
    ```
-8. If decryption failed, throw an exception. Otherwise, return `p`.
+9. If decryption failed, throw an exception. Otherwise, return `p`.
 
 ## Sign
 
