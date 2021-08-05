@@ -2,6 +2,11 @@
 
 ## Encrypt
 
+Before encrypting, first assert that the key being used is intended for use
+with `v2.local` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
+
 Given a message `m`, key `k`, and optional footer `f`.
 
 1. Set header `h` to `v2.local.`
@@ -31,6 +36,11 @@ Given a message `m`, key `k`, and optional footer `f`.
 
 ## Decrypt
 
+Before decrypting, first assert that the key being used is intended for use
+with `v2.local` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
+
 Given a message `m`, key `k`, and optional footer `f`.
 
 1. If `f` is not empty, implementations **MAY** verify that the value appended
@@ -58,6 +68,11 @@ Given a message `m`, key `k`, and optional footer `f`.
 
 ## Sign
 
+Before signing, first assert that the key being used is intended for use
+with `v2.public` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
+
 Given a message `m`, Ed25519 secret key `sk`, and
 optional footer `f` (which defaults to empty string):
 
@@ -79,6 +94,11 @@ optional footer `f` (which defaults to empty string):
    * Note: `base64url()` means Base64url from RFC 4648 without `=` padding.
 
 ## Verify
+
+Before verifying, first assert that the key being used is intended for use
+with `v2.public` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
 
 Given a signed message `sm`, public key `pk`, and optional footer `f`
 (which defaults to empty string):

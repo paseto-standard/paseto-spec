@@ -6,6 +6,11 @@ Throw an exception. We don't do this in version 3.
 
 ## Encrypt
 
+Before encrypting, first assert that the key being used is intended for use
+with `v3.local` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
+
 Given a message `m`, key `k`, and optional footer `f` (which defaults to empty 
 string), and an optional implicit assertion `i` (which defaults to empty string):
 
@@ -55,6 +60,11 @@ string), and an optional implicit assertion `i` (which defaults to empty string)
     * Note: `base64url()` means Base64url from RFC 4648 without `=` padding.
 
 ## Decrypt
+
+Before decrypting, first assert that the key being used is intended for use
+with `v3.local` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
 
 Given a message `m`, key `k`, and optional footer `f`
 (which defaults to empty string), and an optional
@@ -126,6 +136,11 @@ implicit assertion `i` (which defaults to empty string):
 
 ## Sign
 
+Before signing, first assert that the key being used is intended for use
+with `v3.public` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
+
 Given a message `m`, 384-bit ECDSA secret key `sk`, an optional footer `f` 
 (which defaults to empty string), and an optional implicit assertion `i`
 (which defaults to empty string):
@@ -181,6 +196,11 @@ pubKeyCompress(x, y):
 ```
 
 ## Verify
+
+Before verifying, first assert that the key being used is intended for use
+with `v3.public` tokens.
+See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+for more information.
 
 Given a signed message `sm`, ECDSA public key `pk` (which **MUST** use 
 [point compression](https://www.secg.org/sec1-v2.pdf) (Section 2.3.3)),
