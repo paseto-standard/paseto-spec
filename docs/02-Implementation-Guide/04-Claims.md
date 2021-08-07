@@ -1,5 +1,7 @@
 # Registered Claims
 
+## Payload Claims
+
 The following keys are reserved for use within PASETO. Users SHOULD NOT write
 arbitrary/invalid data to any keys in a top-level PASETO in the list below:
 
@@ -17,6 +19,28 @@ In the table above, DateTime means an ISO 8601 compliant DateTime string.
 
 Any other claims can be freely used. These keys are only reserved in the top-level
 JSON object.
+
+The keys in the above table are case-sensitive.
+
+Implementors SHOULD provide some means to discourage setting invalid/arbitrary data
+to these reserved claims.
+
+## Optional Footer Claims
+
+The optional footer **MAY** contain an optional JSON object encoded as a UTF-8 string.
+It does not have to be JSON. Refer to [this document](01-Payload-Processing.md#optional-footer)
+for safe JSON handling recommendations, especially for preprocessing the JSON string before
+parsing it into memory.
+
+If the optional footer does contain JSON, the following claims may be stored in the footer.
+Users SHOULD NOT write arbitrary/invalid data to any keys in a top-level PASETO in the list below: 
+
+| Key   | Name            | Type      | Example                                                         |
+| ----- | --------------- | --------- | --------------------------------------------------------------- |
+| `kid` | Key ID          | string    | `{"kid":"k4.lid.iVtYQDjr5gEijCSjJC3fQaJm7nCeQSeaty0Jixy8dbsk"}` |
+
+Any other claims can be freely used. These keys are only reserved in the top-level
+JSON object (if the footer contains a JSON object).
 
 The keys in the above table are case-sensitive.
 
