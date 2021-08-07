@@ -35,9 +35,10 @@ parsing it into memory.
 If the optional footer does contain JSON, the following claims may be stored in the footer.
 Users SHOULD NOT write arbitrary/invalid data to any keys in a top-level PASETO in the list below: 
 
-| Key   | Name            | Type      | Example                                                         |
-| ----- | --------------- | --------- | --------------------------------------------------------------- |
-| `kid` | Key ID          | string    | `{"kid":"k4.lid.iVtYQDjr5gEijCSjJC3fQaJm7nCeQSeaty0Jixy8dbsk"}` |
+| Key   | Name           | Type   | Example                                                         |
+| ----- | -------------- | ------ | --------------------------------------------------------------- |
+| `kid` | Key ID         | string | `{"kid":"k4.lid.iVtYQDjr5gEijCSjJC3fQaJm7nCeQSeaty0Jixy8dbsk"}` |
+| `wpk` | Wrapped PASERK | string | `{"wpk":"k4.local-wrap.pie.pu-fBxw... [truncated] ...0eo8iCS"}` |
 
 Any other claims can be freely used. These keys are only reserved in the top-level
 JSON object (if the footer contains a JSON object).
@@ -46,3 +47,9 @@ The keys in the above table are case-sensitive.
 
 Implementors SHOULD provide some means to discourage setting invalid/arbitrary data
 to these reserved claims.
+
+#### Wrapped PASERK
+
+Some types of serialized keys may be stored in the footer.
+
+See [PASERK](https://github.com/paseto-standard/paserk) for more information. 
