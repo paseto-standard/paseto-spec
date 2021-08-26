@@ -34,7 +34,7 @@ For example, you might implement something like this:
 public enum Version { V1, V2, V3, V4 };
 public enum Purpose { PURPOSE_LOCAL, PURPOSE_PUBLIC }; 
 
-absract class Key {
+abstract class Key {
      protected byte[] material;
      protected Version version;
      
