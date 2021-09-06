@@ -79,7 +79,8 @@ implicit assertion `i` (which defaults to empty string).
 3. Decode the payload (`m` sans `h`, `f`, and the optional trailing period
    between `m` and `f`) from base64url to raw binary. Set:
     * `n` to the leftmost 32 bytes
-    * `c` to the middle remainder of the payload, excluding `n`.
+    * `t` to the rightmost 32 bytes
+    * `c` to the middle remainder of the payload, excluding `n` and `t`.
 4. Split the key into an Encryption key (`Ek`) and Authentication key (`Ak`),
    using keyed BLAKE2b, using the domain separation constants and `n` as the
    message, and the input key as the key. The first value will be 56 bytes,
