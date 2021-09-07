@@ -122,7 +122,7 @@ Given a message `m`, key `k`, and optional footer `f`
 ## Sign
 
 Before signing, first assert that the key being used is intended for use
-with `v1.public` tokens.
+with `v1.public` tokens, and is the secret key of the intended keypair.
 See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
 for more information.
 
@@ -154,7 +154,7 @@ optional footer `f` (which defaults to empty string):
 ## Verify
 
 Before verifying, first assert that the key being used is intended for use
-with `v1.public` tokens.
+with `v1.public` tokens, and is the public key of the intended keypair.
 See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
 for more information.
 
