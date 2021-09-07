@@ -1,5 +1,7 @@
 # Paseto Version 2
 
+> PASETO Version 2 is deprecated. Implementations **SHOULD** migrate to [Version 4](Version4.md).
+
 ## Encrypt
 
 Before encrypting, first assert that the key being used is intended for use
