@@ -10,7 +10,8 @@ Given a message `m`, key `k`, and optional footer `f` (which defaults to empty
 string), and an optional implicit assertion `i` (which defaults to empty string):
 
 1. Before encrypting, first assert that the key being used is intended for use
-   with `v3.local` tokens. See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+   with `v3.local` tokens, and has a length of 256 bits (32 bytes).
+   See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
 2. Set header `h` to `v3.local.`
 3. Generate 32 random bytes from the OS's CSPRNG to get the nonce, `n`.
@@ -64,7 +65,8 @@ Given a message `m`, key `k`, and optional footer `f`
 implicit assertion `i` (which defaults to empty string):
 
 1. Before decrypting, first assert that the key being used is intended for use
-   with `v3.local` tokens. See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+   with `v3.local` tokens, and has a length of 256 bits (32 bytes).
+   See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
 2. If `f` is not empty, implementations **MAY** verify that the value appended
    to the token matches some expected string `f`, provided they do so using a

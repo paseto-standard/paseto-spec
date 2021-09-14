@@ -13,7 +13,8 @@ Given a message `m`, key `k`, and optional footer `f`
 (which defaults to empty string):
 
 1. Before encrypting, first assert that the key being used is intended for use
-   with `v1.local` tokens. See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+   with `v1.local` tokens, and has a length of 256 bits (32 bytes).
+   See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
 2. Set header `h` to `v1.local.`
 3. Generate 32 random bytes from the OS's CSPRNG.
