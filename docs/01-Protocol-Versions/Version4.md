@@ -2,8 +2,8 @@
 
 ## Encrypt
 
-Given a message `m`, key `k`, and optional footer `f`, and an optional
-implicit assertion `i` (which defaults to empty string).
+Given a message `m`, key `k`, and optional footer `f` (which defaults to empty 
+string), and an optional implicit assertion `i` (which defaults to empty string):
 
 1. Before encrypting, first assert that the key being used is intended for use
    with `v4.local` tokens, and has a length of 256 bits (32 bytes). 
@@ -59,8 +59,9 @@ implicit assertion `i` (which defaults to empty string).
 
 ## Decrypt
 
-Given a message `m`, key `k`, and optional footer `f`, and an optional
-implicit assertion `i` (which defaults to empty string).
+Given a message `m`, key `k`, and optional footer `f`
+(which defaults to empty string), and an optional
+implicit assertion `i` (which defaults to empty string):
 
 1. Before decrypting, first assert that the key being used is intended for use
    with `v4.local` tokens, and has a length of 256 bits (32 bytes). 
