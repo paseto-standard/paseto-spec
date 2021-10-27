@@ -17,6 +17,10 @@ be accepted as a key in any PASETO library, **UNLESS** it's an application-speci
 encoding that encapsulates both the key and an algorithm identifier. (For example,
 a [`k2.local` PASERK](https://github.com/paseto-standard/paserk/blob/master/types/local.md).)
 
+In order to allow for key interoperability between different PASETO libraries,
+any PASETO library **SHOULD** support the `local`, `public` and `secret` types
+from [PASERK](https://github.com/paseto-standard/paserk).
+
 ## Implementation Guidance
 
 ### Object-Oriented Languages
