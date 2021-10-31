@@ -17,9 +17,8 @@ Given a message `m`, key `k`, and optional footer `f`
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
 2. Set header `h` to `v1.local.`
-3. Generate 32 random bytes from the OS's CSPRNG.
-4. Calculate `GetNonce()` of `m` and the output of step 2
-   to get the nonce, `n`.
+3. Generate 32 random bytes from the OS's CSPRNG, `b`.
+4. Calculate `GetNonce()` of `m` and the `b` to get the nonce, `n`.
    * This step is to ensure that an RNG failure does not result
      in a nonce-misuse condition that breaks the security of
      our stream cipher.
