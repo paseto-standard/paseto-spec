@@ -1,5 +1,7 @@
 # Paseto Version 1
 
+> PASETO Version 1 is deprecated. Implementations **SHOULD** migrate to [Version 3](Version3.md).
+
 ## GetNonce
 
 Given a message (`m`) and a nonce (`n`):
