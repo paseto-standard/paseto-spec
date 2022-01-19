@@ -11,8 +11,8 @@ Given a message `m`, key `k`, and optional footer `f`.
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
 2. Set header `h` to `v2.local.`
-3. Generate 24 random bytes from the OS's CSPRNG.
-4. Calculate BLAKE2b of the message `m` with the output of step 2 as the key,
+3. Generate 24 random bytes from the OS's CSPRNG, `b`.
+4. Calculate BLAKE2b of the message `m` with `b` as the key,
    with an output length of 24. This will be our nonce, `n`.
    * This step is to ensure that an RNG failure does not result in a
      nonce-misuse condition that breaks the security of our stream cipher.
