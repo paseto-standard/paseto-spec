@@ -15,7 +15,13 @@ arbitrary/invalid data to any keys in a top-level PASETO in the list below:
 | `iat` | Issued At        | DateTime | `{"iat":"2038-03-17T00:00:00+00:00"}`                     |
 | `jti` | Token Identifier | string   | `{"jti":"87IFSGFgPNtQNNuw0AtuLttPYFfYwOkjhqdWcLoYQHvL"}`  |
 
-In the table above, DateTime means an ISO 8601 compliant DateTime string.
+In the table above, DateTime means a string in [RFC 3339 Section 5.6 Internet Date/Time
+Format](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) (a profile of ISO 8601).
+Further, date and time MUST be separated with an uppercase "T", and "Z" MUST be capitalized when
+used as a time offset.  While arbitrary fractional seconds SHOULD be supported in parsers, is
+RECOMMENDED to omit them on creation.  Time offsets confer no special meaning, so they MUST NOT be
+used for validation (beyond determining the correct moment in time).  It is RECOMMENDED that all
+DateTime claims use "Z" as a time offset.
 
 Any other claims can be freely used. These keys are only reserved in the top-level
 JSON object.
