@@ -9,6 +9,15 @@ without `=` padding.
 This is implemented in our [constant-time RFC 4648 library](https://github.com/paragonie/constant_time_encoding)
 as `Base64UrlSafe::encodeUnpadded()`.
 
+### Base64 Decoding
+
+When decoding a base64url-encoded segment of a PASETO token, implementations
+**MUST** be strict about the padding:
+
+* Padding with `=` characters is *forbidden*.
+* If there are trailing bits (2 or 4) due to the length of the segment, all trailing 
+  **MUST** be cleared, or the message is rejected.
+
 ## Authentication Padding
 
 Multi-part messages (e.g. header, content, footer) are encoded
