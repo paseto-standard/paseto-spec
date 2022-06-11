@@ -84,7 +84,7 @@ This decodes to:
   11324397f535562178d53ff538e49d5a162242970556b4edd950c87c7d86648a
   ```
 
-To learn what each version means, please see [this page in the documentation](https://github.com/paragonie/paseto/tree/master/docs/01-Protocol-Versions).
+To learn what each version means, please see [this page in the documentation](https://github.com/paseto-standard/paseto-spec/tree/master/docs/01-Protocol-Versions).
 
 ### JWT
 
