@@ -14,6 +14,7 @@ string), and an optional implicit assertion `i` (which defaults to empty string)
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
 2. Set header `h` to `v3.local.`
+   **Note**: This includes the trailing period.
 3. Generate 32 random bytes from the OS's CSPRNG to get the nonce, `n`.
 4. Split the key into an Encryption key (`Ek`) and Authentication key (`Ak`),
    using HKDF-HMAC-SHA384, with `n` appended to the info rather than the salt.
@@ -77,6 +78,7 @@ implicit assertion `i` (which defaults to empty string):
      for specific guidance and example code.
 3. Verify that the message begins with `v3.local.`, otherwise throw an
    exception. This constant will be referred to as `h`.
+   * **Note**: This includes the trailing period.
    * **Future-proofing**: If a future PASETO variant allows for encodings other
      than JSON (e.g., CBOR), future implementations **MAY** also permit those
      values at this step (e.g. `v3c.local.`).
@@ -142,7 +144,8 @@ Given a message `m`, 384-bit ECDSA secret key `sk`, an optional footer `f`
    with `v3.public` tokens, and is the secret key of the intended keypair.
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
-2. Set `h` to `v3.public.`
+2. Set `h` to `v3.public.`  
+   **Note**: This includes the trailing period.
 3. Pack `pk`, `h`, `m`, `f`, and `i` together using
    [PAE](Common.md#authentication-padding)
    (pre-authentication encoding). We'll call this `m2`.
@@ -207,7 +210,8 @@ implicit assertion `i` (which defaults to empty string):
    to the token matches some expected string `f`, provided they do so using a
    constant-time string compare function.
 3. Verify that the message begins with `v3.public.`, otherwise throw an
-   exception. This constant will be referred to as `h`.
+   exception. This constant will be referred to as `h`.  
+   **Note**: This includes the trailing period.
 4. Decode the payload (`sm` sans `h`, `f`, and the optional trailing period
    between `m` and `f`) from base64url to raw binary. Set:
     * `s` to the rightmost 96 bytes

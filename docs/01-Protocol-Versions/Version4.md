@@ -9,7 +9,8 @@ string), and an optional implicit assertion `i` (which defaults to empty string)
    with `v4.local` tokens, and has a length of 256 bits (32 bytes). 
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
-2. Set header `h` to `v4.local.`
+2. Set header `h` to `v4.local.`  
+   **Note**: This includes the trailing period.
 3. Generate 32 random bytes from the OS's CSPRNG, `n`.
 4. Split the key into an Encryption key (`Ek`) and Authentication key (`Ak`),
    using keyed BLAKE2b, using the domain separation constants and `n` as the
@@ -72,6 +73,7 @@ implicit assertion `i` (which defaults to empty string):
    constant-time string compare function.
 3. Verify that the message begins with `v4.local.`, otherwise throw an
    exception. This constant will be referred to as `h`.
+   * **Note**: This header includes the trailing period.
    * **Future-proofing**: If a future PASETO variant allows for encodings other
      than JSON (e.g., CBOR), future implementations **MAY** also permit those 
      values at this step (e.g. `v4c.local.`).
@@ -137,7 +139,8 @@ implicit assertion `i` (which defaults to empty string):
    with `v4.public` tokens, and is the secret key of the intended keypair.
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
-2. Set `h` to `v4.public.`
+2. Set `h` to `v4.public.`  
+   **Note**: This includes the trailing period.
 3. Pack `h`, `m`, `f`, and `i` together using
    [PAE](Common.md#authentication-padding)
    (pre-authentication encoding). We'll call this `m2`.
@@ -168,7 +171,8 @@ implicit assertion `i` (which defaults to empty string):
    to the token matches some expected string `f`, provided they do so using a
    constant-time string compare function.
 3. Verify that the message begins with `v4.public.`, otherwise throw an exception.
-   This constant will be referred to as `h`.
+   This constant will be referred to as `h`.  
+   **Note**: This includes the trailing period.
 4. Decode the payload (`sm` sans `h`, `f`, and the optional trailing period
    between `m` and `f`) from base64url to raw binary. Set:
     * `s` to the rightmost 64 bytes

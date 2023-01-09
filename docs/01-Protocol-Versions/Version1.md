@@ -18,7 +18,8 @@ Given a message `m`, key `k`, and optional footer `f`
    with `v1.local` tokens, and has a length of 256 bits (32 bytes).
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
-2. Set header `h` to `v1.local.`
+2. Set header `h` to `v1.local.`  
+   **Note**: This includes the trailing period.
 3. Generate 32 random bytes from the OS's CSPRNG, `b`.
 4. Calculate `GetNonce()` of `m` and the `b` to get the nonce, `n`.
    * This step is to ensure that an RNG failure does not result
@@ -73,7 +74,8 @@ Given a message `m`, key `k`, and optional footer `f`
    to the token matches some expected string `f`, provided they do so using a
    constant-time string compare function.
 3. Verify that the message begins with `v1.local.`, otherwise throw an
-   exception. This constant will be referred to as `h`.
+   exception. This constant will be referred to as `h`.  
+   **Note**: This includes the trailing period.
 4. Decode the payload (`m` sans `h`, `f`, and the optional trailing period
    between `m` and `f`) from base64url to raw binary. Set:
    * `n` to the leftmost 32 bytes
@@ -127,7 +129,8 @@ optional footer `f` (which defaults to empty string):
    with `v1.public` tokens, and is the secret key of the intended keypair.
    See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
    for more information.
-2. Set `h` to `v1.public.`
+2. Set `h` to `v1.public.`  
+   **Note**: This includes the trailing period.
 3. Pack `h`, `m`, and `f` together using
    [PAE](Common.md#authentication-padding)
    (pre-authentication encoding). We'll call this `m2`.
@@ -162,7 +165,8 @@ footer `f` (which defaults to empty string):
    to the token matches some expected string `f`, provided they do so using a
    constant-time string compare function.
 3. Verify that the message begins with `v1.public.`, otherwise throw an
-   exception. This constant will be referred to as `h`.
+   exception. This constant will be referred to as `h`.  
+   **Note**: This includes the trailing period.
 4. Decode the payload (`sm` sans `h`, `f`, and the optional trailing period
    between `m` and `f`) from base64url to raw binary. Set:
    * `s` to the rightmost 256 bytes
