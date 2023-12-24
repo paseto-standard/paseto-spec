@@ -17,7 +17,7 @@ strategies, this means we MUST take attacks that depend on
 [random-key robustness](https://eprint.iacr.org/2020/1491) seriously.
 
 PASETO v4.local uses XChaCha20 to encrypt the message, but then uses
-a keyed BLAKE2b hash (which acts as HMAC) for the authentication tag.
+a keyed BLAKE2b hash (which acts as MAC) for the authentication tag.
 
 ### v3.public
 
