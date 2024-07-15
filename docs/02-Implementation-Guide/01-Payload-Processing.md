@@ -4,6 +4,8 @@ All PASETO payloads must be a JSON-encoded object represented as a UTF-8 encoded
 string. The topmost JSON object should be an object, map, or associative array
 (select appropriate for your language), not a flat array or list.
 
+PASETO library implementors **MUST** ensure uniqueness of object key names.
+
 > **Valid**:
 > 
 > * `{"foo":"bar"}`
@@ -17,6 +19,7 @@ string. The topmost JSON object should be an object, map, or associative array
 > * `{0: "test"}`
 > * `[]`
 > * (Empty string)
+> * `{"foo":"bar","foo":"baz"}`
 
 If non-UTF-8 character sets are desired for some fields, implementors are
 encouraged to use [Base64url](https://tools.ietf.org/html/rfc4648#page-7)
