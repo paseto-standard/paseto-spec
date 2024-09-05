@@ -1,4 +1,4 @@
-# Rationale for V3/V4
+# Rationale for V5/V6
 
 This document aims to capture the rationale for specifying new modes
 (v5 to succeed v3, v6 to succeed v4) for PASETO.
