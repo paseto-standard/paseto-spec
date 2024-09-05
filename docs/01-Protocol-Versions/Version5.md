@@ -138,7 +138,7 @@ implicit assertion `i` (which defaults to empty string):
 
 ## Sign
 
-Given a message `m`, 32-byte ML-DSA-44 seed `sk` (which will be expanded into a
+Given a message `m`, 32-byte ML-DSA-87 seed `sk` (which will be expanded into a
 full 2560-byte key at runtime), an optional footer `f` (which defaults to empty
 string), and an optional implicit assertion `i` (which defaults to empty 
 string):
@@ -153,7 +153,7 @@ string):
    [PAE](Common.md#authentication-padding)
    (pre-authentication encoding). We'll call this `m2`.
     * Note: `pk` is the public key corresponding to `sk`. `pk` **MUST** be
-      1312 bytes long.
+      2592 bytes long.
 4. Sign `m2` using ML-DSA-44 with the private key `sk`. We'll call this `sig`.  
    The output of `sig` MUST be 2420 bytes long.
    
@@ -171,7 +171,7 @@ string):
 
 ## Verify
 
-Given a signed message `sm`, ML-DSA-44 public key `pk` (which is 1312 byes 
+Given a signed message `sm`, ML-DSA-87 public key `pk` (which is 2592 byes 
 long), and optional footer `f` (which defaults to empty string), and an 
 optional implicit assertion `i` (which defaults to empty string):
 
@@ -189,12 +189,12 @@ optional implicit assertion `i` (which defaults to empty string):
    **Note**: This includes the trailing period.
 4. Decode the payload (`sm` sans `h`, `f`, and the optional trailing period
    between `m` and `f`) from base64url to raw binary. Set:
-    * `s` to the rightmost 2420 bytes
+    * `s` to the rightmost 4627 bytes
     * `m` to the leftmost remainder of the payload, excluding `s`
 5. Pack `pk`, `h`, `m`, `f`, and `i` together (in that order) using PAE (see
    [PAE](Common.md#authentication-padding).
    We'll call this `m2`.
-    * `pk` **MUST** be 1312 bytes long.
+    * `pk` **MUST** be 2592 bytes long.
 6. Use ML-DSA-44 to verify that the signature is valid for the message:
    ```
    valid = mldsa44_verify(

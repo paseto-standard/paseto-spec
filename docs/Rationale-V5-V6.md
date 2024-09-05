@@ -14,9 +14,11 @@ Therefore, we propose new PASETO versions for Post-Quantum Cryptography.
 
 ### v5.public
 
-For v5.public, we opt for ML-DSA-44 (one of the [FIPS-204](https://csrc.nist.gov/pubs/fips/204/final)
-parameter sets). This provides the most compact signature that also targets the
-128-bit security level.
+For v5.public, we opt for ML-DSA-87 (one of the [FIPS-204](https://csrc.nist.gov/pubs/fips/204/final)
+parameter sets). This provides the most compact signature that targets the 256-bit
+security level, and is compatible with [CNSA 2.0's parameter recommendations](https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF).
+
+>  Use Level V parameters for all classification levels.
 
 The main reason for this parameter selection is to choose a compact FIPS-compatible
 signature algorithm that achieves post-quantum security. We choose ML-DSA because
