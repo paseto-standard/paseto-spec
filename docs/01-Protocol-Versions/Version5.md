@@ -154,11 +154,11 @@ string):
    (pre-authentication encoding). We'll call this `m2`.
     * Note: `pk` is the public key corresponding to `sk`. `pk` **MUST** be
       2592 bytes long.
-4. Sign `m2` using ML-DSA-44 with the private key `sk`. We'll call this `sig`.  
+4. Sign `m2` using ML-DSA-87 with the private key `sk`. We'll call this `sig`.  
    The output of `sig` MUST be 2420 bytes long.
    
    ```
-   sig = mldsa44_sign(
+   sig = mldsa87_sign(
        message = m2,
        secret_key_seed = sk
    );
@@ -195,9 +195,9 @@ optional implicit assertion `i` (which defaults to empty string):
    [PAE](Common.md#authentication-padding).
    We'll call this `m2`.
     * `pk` **MUST** be 2592 bytes long.
-6. Use ML-DSA-44 to verify that the signature is valid for the message:
+6. Use ML-DSA-87 to verify that the signature is valid for the message:
    ```
-   valid = mldsa44_verify(
+   valid = mldsa87_verify(
        signature = s,
        message = m2,
        public_key = pk
