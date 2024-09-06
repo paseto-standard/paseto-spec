@@ -171,7 +171,7 @@ string):
 
 ## Verify
 
-Given a signed message `sm`, ML-DSA-87 public key `pk` (which is 2592 byes 
+Given a signed message `sm`, ML-DSA-87 public key `pk` (which is 2592 bytes 
 long), and optional footer `f` (which defaults to empty string), and an 
 optional implicit assertion `i` (which defaults to empty string):
 

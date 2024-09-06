@@ -163,7 +163,7 @@ defaults to empty string):
 
 ## Verify
 
-Given a signed message `sm`, SLH-DSA-SHA256-128s public key `pk` (which is 1312 byes
+Given a signed message `sm`, SLH-DSA-SHA256-128s public key `pk` (which is 1312 bytes
 long), and optional footer `f` (which defaults to empty string), and an
 optional implicit assertion `i` (which defaults to empty string):
 
