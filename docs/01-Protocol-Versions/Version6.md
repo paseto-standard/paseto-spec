@@ -1,0 +1,198 @@
+# Paseto Version 6
+
+## Encrypt
+
+Given a message `m`, key `k`, and optional footer `f` (which defaults to empty
+string), and an optional implicit assertion `i` (which defaults to empty string):
+
+1. Before encrypting, first assert that the key being used is intended for use
+   with `v6.local` tokens, and has a length of 256 bits (32 bytes).
+   See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+   for more information.
+2. Set header `h` to `v6.local.`  
+   **Note**: This includes the trailing period.
+3. Generate 32 random bytes from the OS's CSPRNG, `n`.
+4. Split the key into an Encryption key (`Ek`) and Authentication key (`Ak`),
+   using keyed BLAKE2b, using the domain separation constants and `n` as the
+   message, and the input key as the key. The first value will be 56 bytes,
+   the second will be 32 bytes.
+   The derived key will be the leftmost 32 bytes of the hash output.
+   The remaining 24 bytes will be used as a counter nonce (`n2`):
+   ```
+   tmp = crypto_generichash(
+       msg = "paseto-encryption-key" || n,
+       key = key,
+       length = 56
+   );
+   Ek = tmp[0:32]
+   n2 = tmp[32:]
+   Ak = crypto_generichash(
+       msg = "paseto-auth-key-for-aead" || n,
+       key = key,
+       length = 32
+   );
+   ```
+5. Encrypt the message using XChaCha20, using `n2` from step 3 as the nonce and `Ek` as the key.
+   ```
+   c = crypto_stream_xchacha20_xor(
+       message = m
+       nonce = n2
+       key = Ek
+   );
+   ```
+6. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
+   [PAE](Common.md#authentication-padding).
+   We'll call this `preAuth`.
+7. Calculate BLAKE2b-MAC of the output of `preAuth`, using `Ak` as the
+   authentication key. We'll call this `t`.
+   ```
+   t = crypto_generichash(
+       message = preAuth
+       key = Ak,
+       length = 32
+   );
+   ```
+8. If `f` is:
+    * Empty: return h || base64url(n || c || t)
+    * Non-empty: return h || base64url(n || c || t) || `.` || base64url(f)
+    * ...where || means "concatenate"
+    * Note: `base64url()` means Base64url from RFC 4648 without `=` padding.
+
+## Decrypt
+
+Given a message `m`, key `k`, and optional footer `f`
+(which defaults to empty string), and an optional
+implicit assertion `i` (which defaults to empty string):
+
+1. Before decrypting, first assert that the key being used is intended for use
+   with `v6.local` tokens, and has a length of 256 bits (32 bytes).
+   See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+   for more information.
+2. If `f` is not empty, implementations **MAY** verify that the value appended
+   to the token matches some expected string `f`, provided they do so using a
+   constant-time string compare function.
+3. Verify that the message begins with `v6.local.`, otherwise throw an
+   exception. This constant will be referred to as `h`.
+    * **Note**: This header includes the trailing period.
+    * **Future-proofing**: If a future PASETO variant allows for encodings other
+      than JSON (e.g., CBOR), future implementations **MAY** also permit those
+      values at this step (e.g. `v6c.local.`).
+4. Decode the payload (`m` sans `h`, `f`, and the optional trailing period
+   between `m` and `f`) from base64url to raw binary. Set:
+    * `n` to the leftmost 32 bytes
+    * `t` to the rightmost 32 bytes
+    * `c` to the middle remainder of the payload, excluding `n` and `t`.
+5. Split the key into an Encryption key (`Ek`) and Authentication key (`Ak`),
+   using keyed BLAKE2b, using the domain separation constants and `n` as the
+   message, and the input key as the key. The first value will be 56 bytes,
+   the second will be 32 bytes.
+   The derived key will be the leftmost 32 bytes of the hash output.
+   The remaining 24 bytes will be used as a counter nonce (`n2`):
+   ```
+   tmp = crypto_generichash(
+       msg = "paseto-encryption-key" || n,
+       key = key,
+       length = 56
+   );
+   Ek = tmp[0:32]
+   n2 = tmp[32:]
+   Ak = crypto_generichash(
+       msg = "paseto-auth-key-for-aead" || n,
+       key = key,
+       length = 32
+   );
+   ```
+6. Pack `h`, `n`, `c`, `f`, and `i` together (in that order) using
+   [PAE](Common.md#authentication-padding).
+   We'll call this `preAuth`.
+7. Re-calculate BLAKE2b-MAC of the output of `preAuth`, using `Ak` as the
+   authentication key. We'll call this `t2`.
+   ```
+   t2 = crypto_generichash(
+       message = preAuth
+       key = Ak,
+       length = 32
+   );
+   ```
+8. Compare `t` with `t2` using a constant-time string compare function. If they
+   are not identical, throw an exception.
+    * You **MUST** use a constant-time string compare function to be compliant.
+      If you do not have one available to you in your programming language/framework,
+      you MUST use [Double HMAC](https://paragonie.com/blog/2015/11/preventing-timing-attacks-on-string-comparison-with-double-hmac-strategy).
+9. Decrypt `c` using `XChaCha20`, store the result in `p`.
+   ```
+   p = crypto_stream_xchacha20_xor(
+      ciphertext = c
+      nonce = n2
+      key = Ek
+   );
+   ```
+10. If decryption failed, throw an exception. Otherwise, return `p`.
+
+## Sign
+
+Given a message `m`, 64-byte SLH-DSA-SHA256-128s secret key `sk`  an optional footer `f`
+(which defaults to empty string), and an optional implicit assertion `i` (which
+defaults to empty string):
+
+1. Before signing, first assert that the key being used is intended for use
+   with `v6.public` tokens, and is the secret key of the intended keypair.
+   See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+   for more information.
+2. Set `h` to `v6.public.`  
+   **Note**: This includes the trailing period.
+3. Pack `pk`, `h`, `m`, `f`, and `i` together using
+   [PAE](Common.md#authentication-padding)
+   (pre-authentication encoding). We'll call this `m2`.
+    * Note: `pk` is the public key corresponding to `sk`. `pk` **MUST** be
+      32 bytes long.
+4. Sign `m2` using SLH-DSA-SHA256-128s with the private key `sk`. We'll call this `sig`.  
+   The output of `sig` MUST be 7856 bytes long.
+
+   ```
+   sig = slhdsa_128s_sha256_sign(
+       message = m2,
+       secret_key = sk
+   );
+   ```
+5. If `f` is:
+    * Empty: return "`h` || base64url(`m` || `sig`)"
+    * Non-empty: return "`h` || base64url(`m` || `sig`) || `.` || base64url(`f`)"
+    * ...where || means "concatenate"
+    * Note: `base64url()` means Base64url from RFC 4648 without `=` padding.
+
+## Verify
+
+Given a signed message `sm`, SLH-DSA-SHA256-128s public key `pk` (which is 1312 bytes
+long), and optional footer `f` (which defaults to empty string), and an
+optional implicit assertion `i` (which defaults to empty string):
+
+1. Before verifying, first assert that the key being used is intended for use
+   with `v6.public` tokens, and is the public key of the intended keypair.
+   See [Algorithm Lucidity](../02-Implementation-Guide/03-Algorithm-Lucidity.md)
+   for more information.
+
+   Implementations **MUST** bind the algorithm selection to the key, not the header.
+2. If `f` is not empty, implementations **MAY** verify that the value appended
+   to the token matches some expected string `f`, provided they do so using a
+   constant-time string compare function.
+3. Verify that the message begins with `v6.public.`, otherwise throw an
+   exception. This constant will be referred to as `h`.  
+   **Note**: This includes the trailing period.
+4. Decode the payload (`sm` sans `h`, `f`, and the optional trailing period
+   between `m` and `f`) from base64url to raw binary. Set:
+    * `s` to the rightmost 7856 bytes
+    * `m` to the leftmost remainder of the payload, excluding `s`
+5. Pack `pk`, `h`, `m`, `f`, and `i` together (in that order) using PAE (see
+   [PAE](Common.md#authentication-padding).
+   We'll call this `m2`.
+    * `pk` **MUST** be 1312 bytes long.
+6. Use SLH-DSA-SHA256-128s to verify that the signature is valid for the message:
+   ```
+   valid = slhdsa_128s_sha256_verify(
+       signature = s,
+       message = m2,
+       public_key = pk
+   );
+   ```
+7. If the signature is valid, return `m`. Otherwise, throw an exception.
