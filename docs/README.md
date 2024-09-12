@@ -51,6 +51,31 @@ the Key-ID.
 
 If you want public-key encryption, check out [PASERK](https://github.com/paseto-standard/paserk).
 
+### Token Opacity
+
+Users **MAY** strip the version and purpose metadata and infer these values from the configured key,
+provided the underlying implementation correctly implements the specification (with special focus
+on [Algorithm Lucidity](02-Implementation-Guide/03-Algorithm-Lucidity.md).
+
+In this situation, the following tokens are considered equivalent:
+
+```json5
+{
+  "normal-paseto":
+    "v4.local.8zCdZqdMg5FerLv1kiJDW6gs-uZtw7i66UdIaQG1aKAhgR4fINJggpNJFtXiG7d1y1b4fU_vPK4gILXCDT0oz2Gvy0YBRq0Et-zwOnFqtEH0pHoNdH8tplhH6ohMlW25Dvy-F_eCnMoQzkU.eyJraWQiOiIxIn0",
+  "opaque-paseto":
+    "8zCdZqdMg5FerLv1kiJDW6gs-uZtw7i66UdIaQG1aKAhgR4fINJggpNJFtXiG7d1y1b4fU_vPK4gILXCDT0oz2Gvy0YBRq0Et-zwOnFqtEH0pHoNdH8tplhH6ohMlW25Dvy-F_eCnMoQzkU.eyJraWQiOiIxIn0",
+  // Encoded with PASERK:
+  "symmetric-key":
+    "k4.local.NX-ZLvLbx_nLVaHpnBogj6IY5ddiJxjOZNrJ_p_O0Zo",
+}
+```
+
+When decoding an opaque token (i.e., no header), the `v4.local.` will be provided by the key.
+
+Opacity **MAY** be used with a key ring containing multiple keys, selected by the Key ID feature,
+but these key rings **MUST** only contain keys intended for the same version and purpose.
+
 ### Implicit Assertions
 
 PASETO `v3` and `v4` tokens support a feature called **implicit assertions**, which are used
