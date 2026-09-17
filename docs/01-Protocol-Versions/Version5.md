@@ -155,7 +155,7 @@ string):
     * Note: `pk` is the public key corresponding to `sk`. `pk` **MUST** be
       2592 bytes long.
 4. Sign `m2` using ML-DSA-87 with the private key `sk`. We'll call this `sig`.  
-   The output of `sig` MUST be 2420 bytes long.
+   The output of `sig` MUST be 4627 bytes long.
    
    ```
    sig = mldsa87_sign(
