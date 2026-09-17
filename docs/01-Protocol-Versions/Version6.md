@@ -186,7 +186,7 @@ optional implicit assertion `i` (which defaults to empty string):
 5. Pack `pk`, `h`, `m`, `f`, and `i` together (in that order) using PAE (see
    [PAE](Common.md#authentication-padding).
    We'll call this `m2`.
-    * `pk` **MUST** be 1312 bytes long.
+    * `pk` **MUST** be 32 bytes long.
 6. Use SLH-DSA-SHA256-128s to verify that the signature is valid for the message:
    ```
    valid = slhdsa_128s_sha256_verify(
