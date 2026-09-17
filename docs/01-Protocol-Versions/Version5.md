@@ -194,7 +194,7 @@ optional implicit assertion `i` (which defaults to empty string):
 5. Pack `pk`, `h`, `m`, `f`, and `i` together (in that order) using PAE (see
    [PAE](Common.md#authentication-padding).
    We'll call this `m2`.
-    * `pk` **MUST** be 2592 bytes long.
+    * `pk` **MUST** be 4627 bytes long.
 6. Use ML-DSA-87 to verify that the signature is valid for the message:
    ```
    valid = mldsa87_verify(
